@@ -20,6 +20,8 @@ namespace Bakery.Wpf.Common
 
         MainWindowViewModel _ => new MainWindow(),
 
+        EditAndCreateProductViewModel _ => new EditAndCreateProductWindow(),
+
         // default -> InvalidOperationException
         _ => throw new InvalidOperationException($"Unbekanntes ViewModel '{viewModel}'"),
       };

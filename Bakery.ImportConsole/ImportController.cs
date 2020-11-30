@@ -8,12 +8,23 @@ namespace Bakery.ImportConsole
 {
     public class ImportController
     {
-        public static (IEnumerable<Order>, IEnumerable<Product>) ReadFromCsv()
+        public static IEnumerable<Product> ReadFromCsv()
         {
+            string fileName1 = "Products.csv";
             string fileName2 = "OrderItems.csv";
+
+            string[][] matrix1 = MyFile.ReadStringMatrixFromCsv(fileName1, true);
             string[][] matrix2 = MyFile.ReadStringMatrixFromCsv(fileName2, true);
 
-            var products = GetAllProductsFromCsv();
+            var products = matrix1
+             .Select(line => new Product()
+             {
+                 ProductNr = line[0],
+                 Name = line[1],
+                 Price = Convert.ToDouble(line[2]),
+                 OrderItems = new List<OrderItem>()
+             })
+             .ToArray();
 
             var customers = matrix2
                 .GroupBy(line => $"{line[2]};{line[3]};{line[4]}")
@@ -69,22 +80,18 @@ namespace Bakery.ImportConsole
                 }
             }
 
-            return (orders, products.Except(productsInUse));
-        }
-
-        public static IEnumerable<Product> GetAllProductsFromCsv()
-        {
-            string fileName1 = "Products.csv";
-            string[][] matrix1 = MyFile.ReadStringMatrixFromCsv(fileName1, true);
-
-            return matrix1
-                .Select(line => new Product()
+            foreach (var product in products)
+            {
+                foreach (var orderItem in orderItems)
                 {
-                    ProductNr = line[0],
-                    Name = line[1],
-                    Price = Convert.ToDouble(line[2])
-                })
-                .ToArray();
+                    if (orderItem.Product.ProductNr.Equals(product.ProductNr))
+                    {
+                        product.OrderItems.Add(orderItem);
+                    }
+                }
+            }
+
+            return products;
         }
 
         private static DateTime ParseDate(string date)

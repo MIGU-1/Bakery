@@ -7,5 +7,48 @@
         xmlns:local="clr-namespace:Bakery.Wpf.Views"
         mc:Ignorable="d"
         Title="Produkte" Height="550" Width="450">
-    
+    <Grid ShowGridLines="False">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Text="Produktübersicht" FontWeight="Bold" FontSize="20" HorizontalAlignment="Center"></TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="Preis von" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PriceFrom, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="Preis bis" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding PriceTo, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Row="2" Grid.Column="4" Margin="10,0,0,0" Content="SUCHE" Command="{Binding CmdSearchCommand}"/>
+
+        <DataGrid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="6" AutoGenerateColumns="False" ItemsSource="{Binding Products, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" SelectedItem="{Binding SelectedProduct, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.InputBindings>
+                <MouseBinding MouseAction="LeftDoubleClick" Command="{Binding CmdEditProductCommand}"/>
+            </DataGrid.InputBindings>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="PROD.NR" Width="80" Binding="{Binding ProductNr, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="PREIS" Width="80" Binding="{Binding Price, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="VERKAUFT" Width="80" Binding="{Binding AmountSold, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="UMSATZ" Width="80" Binding="{Binding Sales, UpdateSourceTrigger=PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="Durchschnittspreis" VerticalAlignment="Center" Margin="10,0,0,0"/>
+        <TextBlock Grid.Row="5" Grid.Column="2" Text="{Binding AvgPrice, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="5,5,5,5" Content="PRODUKT ERSTELLEN" Command="{Binding CmdCreateCommand}"/>
+        <Button Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="3" Margin="5,5,5,5" Content="PRODUKT BEARBEITEN" Command="{Binding CmdEditCommand}"/>
+    </Grid>
 </controls:MetroWindow>

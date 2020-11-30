@@ -15,7 +15,7 @@ namespace Bakery.Core.Entities
         [DisplayName("Preis")]
         public double Price { get; set; }
 
-        public IEnumerable<OrderItem> OrderItems { get; set; }
+        public List<OrderItem> OrderItems { get; set; }
 
         public Product()
         {
