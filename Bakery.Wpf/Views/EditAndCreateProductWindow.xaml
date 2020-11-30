@@ -22,6 +22,7 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="10"/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="Produkt erstellen" FontWeight="Bold"/>
@@ -32,7 +33,8 @@
         <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
         <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}"/>
 
-        <Button Grid.Row="8" Grid.Column="0" Margin="5,5,5,5" Content="Speichern"/>
-        <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Width="200" Margin="205,5,5,5" HorizontalAlignment="Left" Content="Rückgängig"/>
+        <Button Grid.Row="8" Grid.Column="0" Margin="5,5,5,5" Content="Speichern" Command="{Binding CmdSaveCommand}"/>
+        <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Width="200" Margin="205,5,5,5" HorizontalAlignment="Left" Content="Rückgängig" Command="{Binding CmdCancelCommand}"/>
+        <Label Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Style="{StaticResource ErrorFontColorStyle}" Content="{Binding DbError}"/>
     </Grid>
 </Window>

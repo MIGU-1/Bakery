@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bakery.Core.Entities;
+using System;
 using System.Threading.Tasks;
 
 namespace Bakery.Core.Contracts
@@ -21,5 +22,5 @@ namespace Bakery.Core.Contracts
     Task DeleteDatabaseAsync();
     Task MigrateDatabaseAsync();
     Task CreateDatabaseAsync();
-  }
+    }
 }

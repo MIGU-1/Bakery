@@ -147,17 +147,17 @@ namespace Bakery.Wpf.ViewModels
         }
 
         private ICommand _cmdCreateCommand;
-        public ICommand CmdCreateCommand 
-        { 
+        public ICommand CmdCreateCommand
+        {
             get
             {
-                if(_cmdCreateCommand == null)
+                if (_cmdCreateCommand == null)
                 {
                     _cmdCreateCommand = new RelayCommand(
                         execute: _ =>
                         {
                             Controller.ShowWindow(new EditAndCreateProductViewModel(Controller, null), true);
-                            RefreshDataGrid();
+                            _ = LoadProducts();
                         },
                         canExecute: _ => true
                         );
@@ -178,7 +178,8 @@ namespace Bakery.Wpf.ViewModels
                     _cmdEditCommand = new RelayCommand(
                         execute: _ =>
                         {
-                            Controller.ShowWindow(new EditAndCreateProductViewModel(Controller, null), true);
+                            Controller.ShowWindow(new EditAndCreateProductViewModel(Controller, SelectedProduct), true);
+                            _ = LoadProducts();
                         },
                         canExecute: _ => true
                         );

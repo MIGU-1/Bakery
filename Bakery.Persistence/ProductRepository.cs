@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bakery.Persistence
 {
-  public class ProductRepository : IProductRepository
+    public class ProductRepository : IProductRepository
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -32,5 +32,17 @@ namespace Bakery.Persistence
             .Products
             .Include(p => p.OrderItems)
             .ToArrayAsync();
+
+        public void Update(Product product)
+            => _dbContext.Products.Update(product);
+
+        public async Task<Product> GetByIdAsync(int id)
+            => await _dbContext
+            .Products
+            .Where(p => p.Id == id)
+            .SingleOrDefaultAsync();
+
+        public async Task AddAsync(Product product)
+            => await _dbContext.Products.AddAsync(product);
     }
 }
